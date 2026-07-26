@@ -3,58 +3,28 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>YENI JAYA LAUNDRY - Kasir Pro</title>
+<title>YENI JAYA LAUNDRY - Kasir Pro (Instant)</title>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&family=Roboto&family=Open+Sans&family=Poppins&family=Montserrat&display=swap" rel="stylesheet">
 <style>
   :root{
-    --bg:#f1f5f9;
-    --sidebar:#0f172a;
-    --sidebar-2:#1e293b;
-    --card:#ffffff;
-    --primary:#6366f1;
-    --primary-dark:#4f46e5;
-    --success:#10b981;
-    --success-dark:#059669;
-    --warning:#f59e0b;
-    --danger:#ef4444;
-    --text:#0f172a;
-    --muted:#64748b;
-    --border:#e2e8f0;
-    --shadow:0 4px 20px rgba(15,23,42,.06);
-    --radius:16px;
-    --input-bg:#f8fafc;
-    --hover-bg:#f8fafc;
+    --bg:#f1f5f9;--sidebar:#0f172a;--sidebar-2:#1e293b;--card:#ffffff;
+    --primary:#6366f1;--primary-dark:#4f46e5;--success:#10b981;--success-dark:#059669;
+    --warning:#f59e0b;--danger:#ef4444;--text:#0f172a;--muted:#64748b;
+    --border:#e2e8f0;--shadow:0 4px 20px rgba(15,23,42,.06);--radius:16px;
   }
-  
-  /* DARK MODE */
-  body.dark{
-    --bg:#0f172a;
-    --sidebar:#020617;
-    --sidebar-2:#0f172a;
-    --card:#1e293b;
-    --text:#f1f5f9;
-    --muted:#94a3b8;
-    --border:#334155;
-    --shadow:0 4px 20px rgba(0,0,0,.3);
-    --input-bg:#0f172a;
-    --hover-bg:#334155;
-  }
+  *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',system-ui,sans-serif}
+  body{background:var(--bg);color:var(--text);height:100vh;overflow:hidden;transition:background .3s,color .3s}
+  body.dark{--bg:#0f172a;--sidebar:#020617;--sidebar-2:#0f172a;--card:#1e293b;--text:#f1f5f9;--muted:#94a3b8;--border:#334155;--shadow:0 4px 20px rgba(0,0,0,.3)}
   body.dark .topbar{background:#1e293b;border-color:#334155}
   body.dark .clock{color:#f1f5f9}
   body.dark .chip{background:#0f172a;border-color:#334155;color:#f1f5f9}
   body.dark .chip:hover{border-color:var(--primary);color:var(--primary)}
   body.dark .chip.primary{background:var(--primary);color:#fff}
-  body.dark .hist-head input{background:#0f172a;color:#f1f5f9;border-color:#334155}
-  body.dark .price-head input{background:#0f172a;color:#f1f5f9;border-color:#334155}
-  body.dark .stat-card{background:#1e293b;border-color:#334155}
-  body.dark .hist-table{background:#1e293b}
-  body.dark .hist-table th{background:#0f172a;border-color:#334155}
-  body.dark .hist-table td{border-color:#334155}
-  body.dark .hist-table tr:hover{background:#334155}
-  body.dark .price-table{background:#1e293b}
-  body.dark .price-table th{background:#0f172a;border-color:#334155}
-  body.dark .price-table td{border-color:#334155}
-  body.dark .price-table tr:hover{background:#334155}
+  body.dark .hist-head input,body.dark .price-head input{background:#0f172a;color:#f1f5f9;border-color:#334155}
+  body.dark .stat-card,body.dark .hist-table,body.dark .price-table{background:#1e293b;border-color:#334155}
+  body.dark .hist-table th,body.dark .price-table th{background:#0f172a;border-color:#334155}
+  body.dark .hist-table td,body.dark .price-table td{border-color:#334155}
+  body.dark .hist-table tr:hover,body.dark .price-table tr:hover{background:#334155}
   body.dark .form-group input,body.dark .form-group select,body.dark .form-group textarea{background:#0f172a;color:#f1f5f9;border-color:#334155}
   body.dark .form-group input:focus,body.dark .form-group select:focus,body.dark .form-group textarea:focus{background:#1e293b}
   body.dark .cart-item{background:#0f172a;border-color:#334155}
@@ -78,12 +48,7 @@
   body.dark .badge.lunas{background:#064e3b;color:#6ee7b7}
   body.dark .badge.hutang{background:#7f1d1d;color:#fca5a5}
 
-  *{box-sizing:border-box;margin:0;padding:0;font-family:'Inter',system-ui,sans-serif}
-  body{background:var(--bg);color:var(--text);height:100vh;overflow:hidden;transition:background .3s,color .3s}
-
   .app{display:grid;grid-template-columns:260px 1fr;height:100vh}
-  
-  /* SIDEBAR */
   .sidebar{background:linear-gradient(180deg,#0f172a 0%,#1e293b 100%);color:#fff;display:flex;flex-direction:column;padding:20px 16px;overflow-y:auto}
   .sidebar::-webkit-scrollbar{width:4px}
   .sidebar::-webkit-scrollbar-thumb{background:#334155;border-radius:2px}
@@ -107,7 +72,6 @@
   .conn-row .dot.off{background:var(--danger)}
   .conn-row span{color:#e2e8f0;font-weight:500}
 
-  /* MAIN */
   .main{display:flex;flex-direction:column;overflow:hidden}
   .topbar{background:#fff;padding:14px 24px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:16px;transition:background .3s}
   .topbar h1{font-size:18px;font-weight:800}
@@ -124,13 +88,16 @@
   .chip:hover{border-color:var(--primary);color:var(--primary)}
   .chip.primary{background:var(--primary);color:#fff;border-color:var(--primary)}
   .clock{font-weight:700;font-size:13px;color:var(--text)}
+  .toggle-switch{position:relative;width:50px;height:26px;background:#cbd5e1;border-radius:999px;cursor:pointer;transition:background .3s}
+  .toggle-switch.active{background:var(--primary)}
+  .toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform .3s}
+  .toggle-switch.active::after{transform:translateX(24px)}
 
   .content{flex:1;overflow-y:auto;padding:20px 24px}
   .page{display:none;animation:fadeIn .3s ease}
   .page.active{display:block}
   @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
 
-  /* KASIR */
   .kasir-grid{display:grid;grid-template-columns:1fr 420px;gap:20px;align-items:start}
   @media(max-width:1200px){.kasir-grid{grid-template-columns:1fr}}
   .card{background:var(--card);border-radius:var(--radius);padding:24px;box-shadow:var(--shadow);border:1px solid var(--border);transition:background .3s,border-color .3s}
@@ -143,21 +110,20 @@
   @media(max-width:600px){.form-row,.form-row.triple{grid-template-columns:1fr}}
   .form-group label{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px}
   .form-group label .req{color:var(--danger)}
-  .form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;background:var(--input-bg);transition:all .2s;outline:none;color:var(--text)}
-  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(99,102,241,.1)}
+  .form-group input,.form-group select,.form-group textarea{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;background:#f8fafc;transition:all .2s;outline:none;color:var(--text)}
+  .form-group input:focus,.form-group select:focus,.form-group textarea:focus{border-color:var(--primary);background:#fff;box-shadow:0 0 0 3px rgba(99,102,241,.1)}
   .form-group .hint{font-size:11px;color:var(--muted);margin-top:4px}
   .auto-badge{display:inline-block;padding:2px 8px;border-radius:6px;background:#eef2ff;color:var(--primary);font-size:10px;font-weight:700;margin-left:6px;text-transform:uppercase}
   .btn-add{width:100%;padding:14px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:8px;box-shadow:0 6px 16px rgba(99,102,241,.3);display:flex;align-items:center;justify-content:center;gap:8px}
   .btn-add:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 8px 20px rgba(99,102,241,.4)}
   .btn-add:disabled{opacity:.5;cursor:not-allowed}
 
-  /* CART */
   .cart-card{position:sticky;top:20px}
   .inv-badge{display:inline-block;padding:6px 14px;border-radius:999px;background:#eef2ff;color:var(--primary);font-size:12px;font-weight:700;font-family:'JetBrains Mono',monospace}
   .cart-items{max-height:360px;overflow-y:auto;margin:14px 0;padding-right:4px}
   .cart-items::-webkit-scrollbar{width:5px}
   .cart-items::-webkit-scrollbar-thumb{background:#cbd5e1;border-radius:3px}
-  .cart-item{padding:12px;border:1px solid var(--border);border-radius:12px;margin-bottom:10px;background:var(--input-bg);position:relative;transition:background .3s}
+  .cart-item{padding:12px;border:1px solid var(--border);border-radius:12px;margin-bottom:10px;background:#fafafa;position:relative}
   .cart-item-head{display:flex;justify-content:space-between;align-items:start;margin-bottom:6px}
   .cart-item-name{font-weight:700;font-size:13px;line-height:1.3}
   .cart-item-meta{font-size:11px;color:var(--muted);margin-top:2px}
@@ -169,55 +135,51 @@
   .empty-cart{text-align:center;padding:30px 20px;color:var(--muted);font-size:13px}
   .empty-cart .icon{font-size:40px;margin-bottom:8px;opacity:.4}
   .sum-row{display:flex;justify-content:space-between;align-items:center;padding:8px 0;font-size:14px}
-  .sum-row input{width:120px;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;text-align:right;outline:none;background:var(--input-bg);color:var(--text)}
+  .sum-row input{width:120px;padding:8px 10px;border:1.5px solid var(--border);border-radius:8px;font-size:13px;text-align:right;outline:none;background:#f8fafc;color:var(--text)}
   .sum-row input:focus{border-color:var(--primary)}
   .grand-total{display:flex;justify-content:space-between;align-items:center;padding:14px 0;border-top:2px dashed var(--border);margin-top:8px}
   .grand-total .lbl{font-size:18px;font-weight:800;color:var(--primary)}
   .grand-total .val{font-size:22px;font-weight:900;color:var(--primary)}
-  .pay-select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;background:var(--input-bg);outline:none;cursor:pointer;font-weight:600;color:var(--text);transition:background .3s}
+  .pay-select{width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:14px;background:#fff;outline:none;cursor:pointer;font-weight:600;color:var(--text)}
   .pay-select.lunas{border-color:var(--success);background:#ecfdf5;color:#065f46}
   .pay-select.hutang{border-color:var(--warning);background:#fffbeb;color:#92400e}
-  body.dark .pay-select.lunas{background:#064e3b;color:#6ee7b7}
-  body.dark .pay-select.hutang{background:#78350f;color:#fcd34d}
   .btn-save{width:100%;padding:16px;border:none;border-radius:12px;background:linear-gradient(135deg,var(--success),var(--success-dark));color:#fff;font-size:15px;font-weight:700;cursor:pointer;transition:all .2s;margin-top:14px;box-shadow:0 6px 16px rgba(16,185,129,.3);display:flex;align-items:center;justify-content:center;gap:8px}
   .btn-save:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,185,129,.4)}
   .btn-save:disabled{opacity:.5;cursor:not-allowed}
 
-  /* HISTORY */
   .hist-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:12px;flex-wrap:wrap}
-  .hist-head input{padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;outline:none;width:280px;max-width:100%;background:var(--input-bg);color:var(--text);transition:background .3s}
+  .hist-head input{padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;outline:none;width:280px;max-width:100%;background:#fff}
   .hist-head input:focus{border-color:var(--primary)}
   .hist-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
   @media(max-width:900px){.hist-stats{grid-template-columns:repeat(2,1fr)}}
-  .stat-card{background:var(--card);padding:16px;border-radius:12px;border:1px solid var(--border);transition:background .3s}
+  .stat-card{background:#fff;padding:16px;border-radius:12px;border:1px solid var(--border)}
   .stat-label{font-size:11px;color:var(--muted);font-weight:600;text-transform:uppercase;letter-spacing:.5px}
   .stat-value{font-size:22px;font-weight:800;margin-top:4px}
   .stat-value.purple{color:var(--primary)}
   .stat-value.green{color:var(--success)}
   .stat-value.orange{color:var(--warning)}
   .stat-value.blue{color:#06b6d4}
-  .hist-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);transition:background .3s}
-  .hist-table th{background:var(--input-bg);padding:12px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border)}
+  .hist-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .hist-table th{background:#f8fafc;padding:12px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border)}
   .hist-table td{padding:12px;font-size:13px;border-bottom:1px solid var(--border)}
-  .hist-table tr:hover{background:var(--hover-bg)}
+  .hist-table tr:hover{background:#f8fafc}
   .badge{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700}
   .badge.lunas{background:#d1fae5;color:#065f46}
   .badge.hutang{background:#fee2e2;color:#991b1b}
-  .act-btn{padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:var(--card);cursor:pointer;font-size:11px;font-weight:600;margin-right:4px;transition:all .2s;color:var(--text)}
+  .act-btn{padding:6px 10px;border:1px solid var(--border);border-radius:6px;background:#fff;cursor:pointer;font-size:11px;font-weight:600;margin-right:4px;transition:all .2s}
   .act-btn:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
 
-  /* PRICELIST */
   .price-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:12px;flex-wrap:wrap}
-  .price-head input{padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;outline:none;width:280px;max-width:100%;background:var(--input-bg);color:var(--text);transition:background .3s}
+  .price-head input{padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;outline:none;width:280px;max-width:100%;background:#fff}
   .price-head input:focus{border-color:var(--primary)}
   .btn-tambah{padding:10px 20px;border:none;border-radius:10px;background:linear-gradient(135deg,var(--primary),var(--primary-dark));color:#fff;font-size:13px;font-weight:700;cursor:pointer;box-shadow:0 4px 12px rgba(99,102,241,.3);display:flex;align-items:center;gap:6px}
   .btn-tambah:hover{transform:translateY(-1px)}
-  .price-table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden;box-shadow:var(--shadow);transition:background .3s}
-  .price-table th{background:var(--input-bg);padding:12px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border)}
+  .price-table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+  .price-table th{background:#f8fafc;padding:12px;text-align:left;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border)}
   .price-table td{padding:12px;font-size:13px;border-bottom:1px solid var(--border)}
-  .price-table tr:hover{background:var(--hover-bg)}
+  .price-table tr:hover{background:#f8fafc}
   .cat-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700;background:#eef2ff;color:var(--primary)}
-  .dur-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;background:var(--input-bg);color:var(--text)}
+  .dur-pill{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:600;background:#f1f5f9;color:var(--text)}
   .status-pill-sm{display:inline-block;padding:3px 10px;border-radius:6px;font-size:11px;font-weight:700}
   .status-pill-sm.aktif{background:#d1fae5;color:#065f46}
   .status-pill-sm.nonaktif{background:#fee2e2;color:#991b1b}
@@ -227,10 +189,9 @@
   .icon-btn.del{background:#fee2e2;color:var(--danger)}
   .icon-btn.del:hover{background:var(--danger);color:#fff}
 
-  /* SETTINGS */
   .settings-grid{display:grid;grid-template-columns:1fr 1fr;gap:20px}
   @media(max-width:900px){.settings-grid{grid-template-columns:1fr}}
-  .logo-upload{border:2px dashed var(--border);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:var(--input-bg)}
+  .logo-upload{border:2px dashed var(--border);border-radius:12px;padding:20px;text-align:center;cursor:pointer;transition:all .2s;background:#fafafa}
   .logo-upload:hover{border-color:var(--primary);background:#eef2ff}
   .logo-upload img{max-width:150px;max-height:100px;margin:0 auto 8px;display:block;border-radius:8px}
   .logo-upload .hint{font-size:12px;color:var(--muted)}
@@ -238,39 +199,30 @@
   .range-row input[type=range]{flex:1}
   .range-val{font-family:'JetBrains Mono',monospace;font-size:12px;font-weight:600;color:var(--primary);min-width:40px;text-align:right}
 
-  /* MODAL */
   .modal-bg{position:fixed;inset:0;background:rgba(15,23,42,.6);backdrop-filter:blur(4px);display:none;align-items:center;justify-content:center;z-index:100;padding:20px}
   .modal-bg.show{display:flex;animation:fadeIn .2s}
-  .modal{background:var(--card);border-radius:16px;padding:24px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto;transition:background .3s}
-  .modal h3{font-size:16px;font-weight:800;margin-bottom:16px;color:var(--text)}
+  .modal{background:#fff;border-radius:16px;padding:24px;max-width:600px;width:100%;max-height:90vh;overflow-y:auto}
+  .modal h3{font-size:16px;font-weight:800;margin-bottom:16px}
   .modal-actions{display:flex;gap:8px;margin-top:16px;justify-content:flex-end}
 
-  /* TOAST */
   .toast{position:fixed;top:20px;right:20px;padding:14px 20px;border-radius:12px;color:#fff;font-weight:600;font-size:13px;box-shadow:0 10px 30px rgba(0,0,0,.2);z-index:2000;transform:translateX(400px);opacity:0;transition:all .3s ease;max-width:360px}
   .toast.show{transform:translateX(0);opacity:1}
   .toast.success{background:var(--success)}
   .toast.error{background:var(--danger)}
   .toast.info{background:var(--primary)}
 
-  .menu-toggle{display:none;background:none;border:none;font-size:22px;cursor:pointer;color:var(--text)}
+  .menu-toggle{display:none;background:none;border:none;font-size:22px;cursor:pointer}
   @media(max-width:768px){
     .app{grid-template-columns:1fr}
     .sidebar{position:fixed;left:-280px;top:0;bottom:0;width:260px;z-index:50;transition:left .3s}
     .sidebar.open{left:0}
     .menu-toggle{display:block !important}
   }
-
-  /* TOGGLE SWITCH */
-  .toggle-switch{position:relative;width:50px;height:26px;background:#cbd5e1;border-radius:999px;cursor:pointer;transition:background .3s}
-  .toggle-switch.active{background:var(--primary)}
-  .toggle-switch::after{content:'';position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:transform .3s}
-  .toggle-switch.active::after{transform:translateX(24px)}
 </style>
 </head>
 <body>
 
 <div class="app">
-  <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="brand">
       <div class="brand-logo" id="brandLogo">🧺</div>
@@ -279,7 +231,6 @@
         <div class="brand-sub">LAUNDRY</div>
       </div>
     </div>
-
     <div class="section-title">Menu Utama</div>
     <nav class="nav">
       <button class="nav-item active" data-page="kasir"><span class="icon">💳</span>Kasir (POS)</button>
@@ -287,12 +238,10 @@
       <button class="nav-item" data-page="pricelist"><span class="icon">🏷️</span>Pricelist</button>
       <button class="nav-item" data-page="settings"><span class="icon">⚙️</span>Pengaturan</button>
     </nav>
-
     <div class="section-title">Laporan</div>
     <nav class="nav">
       <button class="nav-item" onclick="downloadPDF()"><span class="icon">📄</span>Download PDF</button>
     </nav>
-
     <div class="conn-box">
       <div class="lbl">Status Sistem</div>
       <div class="conn-row"><span class="dot" id="dotSheet"></span><span id="txtSheet">Google Sheets</span></div>
@@ -300,7 +249,6 @@
     </div>
   </aside>
 
-  <!-- MAIN -->
   <main class="main">
     <div class="topbar">
       <div style="display:flex;align-items:center;gap:12px">
@@ -320,7 +268,6 @@
     </div>
 
     <div class="content">
-      <!-- KASIR PAGE -->
       <div class="page active" id="page-kasir">
         <div class="kasir-grid">
           <div>
@@ -334,7 +281,6 @@
                 <div class="form-group"><label>Alamat (jika diantar)</label><input type="text" id="cAlamat" placeholder="Kosongkan jika ambil sendiri" /><div class="hint">Kosongkan jika pelanggan ambil sendiri</div></div>
               </div>
             </div>
-
             <div class="card">
               <div class="card-title"><span class="icon" style="color:var(--success)">➕</span><span style="color:var(--success)">Tambah Layanan</span></div>
               <div class="form-row">
@@ -344,11 +290,11 @@
               <div class="form-row triple">
                 <div class="form-group"><label>Waktu Pengerjaan</label><select id="fWaktu" onchange="onWaktuChange()"><option value="">Pilih Waktu</option></select></div>
                 <div class="form-group"><label>Berat/Jumlah</label><input type="text" id="fBerat" placeholder="12,6" oninput="onBeratInput()" /><div class="hint">Bisa pakai koma (12,6)</div></div>
-                <div class="form-group"><label>Satuan <span class="auto-badge">Auto</span></label><input type="text" id="fSatuan" readonly style="background:var(--input-bg);color:var(--muted)" /></div>
+                <div class="form-group"><label>Satuan <span class="auto-badge">Auto</span></label><input type="text" id="fSatuan" readonly style="background:#f1f5f9;color:var(--muted)" /></div>
               </div>
               <div class="form-row">
-                <div class="form-group"><label>Harga Satuan <span class="auto-badge">Auto</span></label><input type="text" id="fHarga" readonly style="background:var(--input-bg);color:var(--muted)" /></div>
-                <div class="form-group"><label>Total Harga <span class="auto-badge">Auto</span></label><input type="text" id="fTotal" readonly style="background:var(--input-bg);color:var(--primary);font-weight:700" /></div>
+                <div class="form-group"><label>Harga Satuan <span class="auto-badge">Auto</span></label><input type="text" id="fHarga" readonly style="background:#f1f5f9;color:var(--muted)" /></div>
+                <div class="form-group"><label>Total Harga <span class="auto-badge">Auto</span></label><input type="text" id="fTotal" readonly style="background:#f1f5f9;color:var(--primary);font-weight:700" /></div>
               </div>
               <div class="form-row full" id="estRow" style="display:none">
                 <div class="form-group"><label>Estimasi Selesai <span class="auto-badge">Auto</span></label><input type="text" id="fEstimasi" readonly style="background:#ecfdf5;color:#065f46;font-weight:600" /></div>
@@ -385,7 +331,6 @@
         </div>
       </div>
 
-      <!-- HISTORY PAGE -->
       <div class="page" id="page-history">
         <div class="hist-stats">
           <div class="stat-card"><div class="stat-label">Total Transaksi</div><div class="stat-value purple" id="statTotal">0</div></div>
@@ -397,7 +342,7 @@
           <input type="text" id="histSearch" placeholder="🔍 Cari nama, HP, atau ID..." oninput="renderHistory()" />
           <div style="display:flex;gap:8px">
             <button class="chip" onclick="syncSheets()">🔄 Sync</button>
-            <button class="chip primary" onclick="downloadPDF()"> Download PDF</button>
+            <button class="chip primary" onclick="downloadPDF()">📄 Download PDF</button>
           </div>
         </div>
         <div style="overflow-x:auto">
@@ -408,14 +353,13 @@
         </div>
       </div>
 
-      <!-- PRICELIST PAGE -->
       <div class="page" id="page-pricelist">
         <div class="card">
           <div class="price-head">
             <h2 style="font-size:18px;font-weight:800">🏷️ Manajemen Pricelist</h2>
-            <button class="btn-tambah" onclick="openPriceModal()"> Tambah</button>
+            <button class="btn-tambah" onclick="openPriceModal()">➕ Tambah</button>
           </div>
-          <input type="text" id="priceSearch" placeholder="🔍 Cari layanan..." oninput="renderPricelist()" style="width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;outline:none;margin-bottom:16px;background:var(--input-bg);color:var(--text)" />
+          <input type="text" id="priceSearch" placeholder="🔍 Cari layanan..." oninput="renderPricelist()" style="width:100%;padding:12px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;outline:none;margin-bottom:16px;background:#fff" />
           <div style="overflow-x:auto">
             <table class="price-table">
               <thead><tr><th>Kategori</th><th>Layanan</th><th>Estimasi</th><th>Satuan</th><th>Harga</th><th>Status</th><th>Aksi</th></tr></thead>
@@ -425,7 +369,6 @@
         </div>
       </div>
 
-      <!-- SETTINGS PAGE -->
       <div class="page" id="page-settings">
         <div class="settings-grid">
           <div class="card">
@@ -442,7 +385,6 @@
               <input type="file" id="logoInput" accept="image/*" style="display:none" onchange="uploadLogo(event)" />
             </div>
           </div>
-
           <div class="card">
             <h3 style="font-size:16px;font-weight:800;margin-bottom:16px">🧾 Pengaturan Struk</h3>
             <div class="form-group"><label>Footer Struk</label><textarea id="setFooter" style="min-height:80px">Terima kasih atas kepercayaan Anda!
@@ -477,7 +419,6 @@ Barang yang sudah dicuci tidak dapat ditukar kembali.</textarea></div>
   </main>
 </div>
 
-<!-- MODAL PRICELIST -->
 <div class="modal-bg" id="modalPrice">
   <div class="modal">
     <h3 id="priceModalTitle">➕ Tambah Layanan</h3>
@@ -499,7 +440,6 @@ Barang yang sudah dicuci tidak dapat ditukar kembali.</textarea></div>
   </div>
 </div>
 
-<!-- MODAL DETAIL -->
 <div class="modal-bg" id="modalDetail">
   <div class="modal">
     <h3>📄 Detail Transaksi</h3>
@@ -514,10 +454,6 @@ Barang yang sudah dicuci tidak dapat ditukar kembali.</textarea></div>
 <div class="toast" id="toast"></div>
 
 <script>
-/* ============================================
-   YENI JAYA LAUNDRY - FINAL PRO
-   ============================================ */
-
 const DEFAULT_PRODUCTS = [
   {id:'PR001',cat:'Kiloan',name:'Cuci Setrika Wangi',dur:'6 Jam',unit:'Kg',price:20000,status:'Aktif'},
   {id:'PR002',cat:'Kiloan',name:'Cuci Setrika Wangi',dur:'1 Hari',unit:'Kg',price:12000,status:'Aktif'},
@@ -566,13 +502,13 @@ let PRODUCTS = JSON.parse(localStorage.getItem('yj_products')) || JSON.parse(JSO
 let cart = [];
 let selectedProduct = null;
 let settings = JSON.parse(localStorage.getItem('yj_settings')||'null') || {
-  url:'', name:'YENI JAYA LAUNDRY', alamat:'KP. CIDOKOM TAMBAK SEREAH, ALPAMART CIKOREK KEC. KIBIN, KAB. SERANG BANTEN - INDONESIA', hp:'087770434213',
+  url:'https://script.google.com/macros/s/AKfycbwl1JLQn9iGKWI7LdBD_dBFs7Kj5E39ywp7tuFkp85SfHulFzf7EXVqQDPWvCDRmx0t/exec', 
+  name:'YENI JAYA LAUNDRY', alamat:'KP. CIDOKOM TAMBAK SEREAH, ALPAMART CIKOREK KEC. KIBIN, KAB. SERANG BANTEN - INDONESIA', hp:'087770434213',
   footer:'Terima kasih telah menggunakan\nYENI JAYA LAUNDRY',
   size:'80', font:1, bold:0, fontFamily:"'Courier New',monospace", logo:''
 };
 let history = JSON.parse(localStorage.getItem('yj_history')||'[]');
 
-// INIT
 function init(){
   renderKategori();
   generateInvoice();
@@ -585,7 +521,6 @@ function init(){
   document.getElementById('cHp').addEventListener('input', validateForm);
 }
 
-// NAV
 document.querySelectorAll('.nav-item[data-page]').forEach(btn=>{
   btn.addEventListener('click',()=>{
     document.querySelectorAll('.nav-item').forEach(x=>x.classList.remove('active'));
@@ -606,7 +541,6 @@ function generateInvoice(){
   document.getElementById('invBadge').textContent = 'INV-'+num;
 }
 
-// KATEGORI
 function renderKategori(){
   const cats = [...new Set(PRODUCTS.filter(p=>p.status==='Aktif').map(p=>p.cat))];
   document.getElementById('fKategori').innerHTML = '<option value="">-- Pilih Kategori --</option>' + cats.map(c=>`<option value="${c}">${c}</option>`).join('');
@@ -681,7 +615,6 @@ function validateForm(){
   document.getElementById('btnAdd').disabled = !(nama && hp && selectedProduct && berat>0);
 }
 
-// CART
 function tambahKeranjang(){
   const nama = document.getElementById('cNama').value.trim();
   const hp = document.getElementById('cHp').value.trim();
@@ -743,7 +676,9 @@ function onStatusChange(){
   sel.className = 'pay-select '+(sel.value==='Lunas'?'lunas':'hutang');
 }
 
-// SIMPAN
+// ==========================================
+// 🚀 INSTANT SAVE & PRINT (OPTIMIZED)
+// ==========================================
 async function simpanTransaksi(){
   const nama = document.getElementById('cNama').value.trim();
   const hp = document.getElementById('cHp').value.trim();
@@ -757,27 +692,41 @@ async function simpanTransaksi(){
   const terima = +document.getElementById('sTerima').value||0;
   const id = document.getElementById('invBadge').textContent;
   const waktu = new Date();
+  const status = document.getElementById('sStatus').value;
 
   const data = {
     id, waktu: fmtDateTime(waktu), nama, hp, alamat: document.getElementById('cAlamat').value.trim(),
     items: cart, subtotal:sub, diskon:dis, tambahan:tam, total:tot,
-    bayar: document.getElementById('sBayar').value, terima, kembali: Math.max(0, terima-tot),
-    status: document.getElementById('sStatus').value
+    bayar: document.getElementById('sBayar').value, terima, kembali: Math.max(0, terima-tot), status: status
   };
 
   const btn = document.getElementById('btnSave');
-  btn.disabled=true; btn.textContent='⏳ Menyimpan...';
-  try{
-    if(settings.url){
-      await fetch(settings.url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(data)});
-    }
-    history.unshift(data);
-    localStorage.setItem('yj_history', JSON.stringify(history.slice(0,200)));
-    toast('✅ Transaksi tersimpan','success');
-    await printStruk(data);
-    resetForm(); updateHistCount();
-  }catch(e){ toast('❌ Gagal: '+e.message,'error');
-  }finally{ btn.disabled=false; btn.textContent='✅ Simpan & Cetak Draft'; }
+  btn.disabled = true; 
+  btn.textContent = '⚡ Memproses...';
+  
+  // 1. INSTANT LOCAL SAVE (Tidak menunggu network)
+  history.unshift(data);
+  localStorage.setItem('yj_history', JSON.stringify(history.slice(0,200)));
+  updateHistCount();
+  
+  // 2. INSTANT PRINT (Langsung trigger, delay hanya 50ms agar DOM ready)
+  printStruk(data);
+  
+  // 3. INSTANT UI RESET & FEEDBACK
+  toast('✅ Transaksi tersimpan & dicetak!', 'success');
+  resetForm();
+  btn.disabled = false; 
+  btn.textContent = '✅ Simpan & Cetak Draft';
+
+  // 4. BACKGROUND SYNC TO GOOGLE SHEETS (Fire & Forget, tidak memblokir UI)
+  if(settings.url){
+    fetch(settings.url, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: {'Content-Type': 'text/plain;charset=utf-8'},
+      body: JSON.stringify(data)
+    }).catch(err => console.log('Background sync:', err));
+  }
 }
 
 function resetForm(){
@@ -789,18 +738,17 @@ function resetForm(){
   renderCart(); generateInvoice();
 }
 
-// ============ PRINT STRUK (FIXED - RELIABLE) ============
+// ==========================================
+// 🖨️ INSTANT PRINT (IFRAME METHOD)
+// ==========================================
 function printStruk(data){
   const size = settings.size==='58'?'58mm':'80mm';
   const logoHtml = settings.logo ? `<img src="${settings.logo}" style="max-width:90px;max-height:70px;display:block;margin:0 auto 8px">` : '';
   const fs = settings.font===0?'10px':settings.font===1?'11px':'13px';
   const fw = settings.bold?'bold':'normal';
   const ff = settings.fontFamily||"'Courier New',monospace";
-  const statusBox = data.status==='Belum Lunas' 
-    ? '*** DRAFT / BELUM LUNAS ***' 
-    : '*** LUNAS ***';
+  const statusBox = data.status==='Belum Lunas' ? '*** DRAFT / BELUM LUNAS ***' : '*** LUNAS ***';
   
-  // Buat iframe tersembunyi untuk print (lebih reliable dari window.open)
   let iframe = document.getElementById('printFrame');
   if(!iframe){
     iframe = document.createElement('iframe');
@@ -856,19 +804,15 @@ ${data.tambahan?`<div class="row"><span>Tambahan</span><span>+${rp(data.tambahan
 </body></html>`);
   doc.close();
   
-  // Tunggu sampai content ter-render, lalu print
+  // Trigger print instan (50ms cukup untuk render)
   setTimeout(()=>{
     try{
       iframe.contentWindow.focus();
       iframe.contentWindow.print();
-      toast('🖨️ Struk dicetak','success');
-    }catch(e){
-      toast('❌ Gagal print: '+e.message,'error');
-    }
-  }, 300);
+    }catch(e){ console.error('Print error', e); }
+  }, 50);
 }
 
-// ============ HISTORY ============
 function renderHistory(){
   const q = (document.getElementById('histSearch')?.value||'').toLowerCase();
   const filtered = history.filter(h=>!q || h.nama.toLowerCase().includes(q) || h.hp.includes(q) || h.id.toLowerCase().includes(q));
@@ -928,7 +872,6 @@ function reprint(i){ printStruk(history[i]); }
 function closeModal(id){ document.getElementById(id).classList.remove('show'); }
 function updateHistCount(){ document.getElementById('histCount').textContent = history.length; }
 
-// ============ PRICELIST CRUD ============
 function renderPricelist(){
   const q = (document.getElementById('priceSearch')?.value||'').toLowerCase();
   const filtered = PRODUCTS.filter(p=>!q || p.name.toLowerCase().includes(q) || p.cat.toLowerCase().includes(q));
@@ -946,14 +889,14 @@ function renderPricelist(){
       <td><span class="status-pill-sm ${p.status==='Aktif'?'aktif':'nonaktif'}">${p.status}</span></td>
       <td>
         <button class="icon-btn edit" onclick="editPrice('${p.id}')">✏️</button>
-        <button class="icon-btn del" onclick="deletePrice('${p.id}')">️</button>
+        <button class="icon-btn del" onclick="deletePrice('${p.id}')">🗑️</button>
       </td>
     </tr>
   `).join('');
 }
 
 function openPriceModal(edit=null){
-  document.getElementById('priceModalTitle').textContent = edit ? '️ Edit Layanan' : '➕ Tambah Layanan';
+  document.getElementById('priceModalTitle').textContent = edit ? '✏️ Edit Layanan' : '➕ Tambah Layanan';
   document.getElementById('pEditId').value = edit?.id || '';
   document.getElementById('pCat').value = edit?.cat || '';
   document.getElementById('pName').value = edit?.name || '';
@@ -1001,7 +944,6 @@ function deletePrice(id){
   toast('✓ Layanan dihapus','success');
 }
 
-// ============ SETTINGS ============
 function loadSettings(){
   document.getElementById('setUrl').value = settings.url||'';
   document.getElementById('setName').value = settings.name||'';
@@ -1055,7 +997,6 @@ function uploadLogo(e){
   r.readAsDataURL(f);
 }
 
-// ============ GOOGLE SHEETS ============
 async function checkConn(){
   const dot = document.getElementById('dotSheet');
   const txt = document.getElementById('txtSheet');
@@ -1084,14 +1025,12 @@ async function syncSheets(){
   toast('✓ Sync selesai','success');
 }
 
-// ============ REFRESH ============
 function refreshApp(){
   if(confirm('Refresh aplikasi? Data yang belum disimpan akan hilang.')){
     location.reload();
   }
 }
 
-// ============ DARK/LIGHT MODE ============
 function toggleTheme(){
   const body = document.body;
   const toggle = document.getElementById('themeToggle');
@@ -1110,7 +1049,6 @@ function loadTheme(){
   }
 }
 
-// ============ DOWNLOAD PDF ============
 function downloadPDF(){
   if(!history.length){ toast('Tidak ada data','error'); return; }
   const w = window.open('','_blank','width=1000,height=800');
@@ -1192,7 +1130,6 @@ tr:nth-child(even){background:#f8fafc}
   w.document.close();
 }
 
-// ============ UTIL ============
 function rp(n){ return 'Rp '+Math.round(n).toLocaleString('id-ID'); }
 function fmtDateTime(d){ return d.toLocaleString('id-ID',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}); }
 function startClock(){
