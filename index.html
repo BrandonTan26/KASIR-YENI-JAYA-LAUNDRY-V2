@@ -20,7 +20,7 @@
   body.dark .chip{background:#0f172a;border-color:#334155;color:#f1f5f9}
   body.dark .chip:hover{border-color:var(--primary);color:var(--primary)}
   body.dark .chip.primary{background:var(--primary);color:#fff}
-  body.dark .hist-head input,body.dark .price-head input{background:#0f172a;color:#f1f5f9;border-color:#334155}
+  body.dark .hist-head input,body.dark .price-head input,body.dark .local-head input{background:#0f172a;color:#f1f5f9;border-color:#334155}
   body.dark .stat-card,body.dark .hist-table,body.dark .price-table{background:#1e293b;border-color:#334155}
   body.dark .hist-table th,body.dark .price-table th{background:#0f172a;border-color:#334155}
   body.dark .hist-table td,body.dark .price-table td{border-color:#334155}
@@ -147,9 +147,9 @@
   .btn-save:hover:not(:disabled){transform:translateY(-1px);box-shadow:0 8px 20px rgba(16,185,129,.4)}
   .btn-save:disabled{opacity:.5;cursor:not-allowed}
 
-  .hist-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:12px;flex-wrap:wrap}
-  .hist-head input{padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;outline:none;width:280px;max-width:100%;background:#fff}
-  .hist-head input:focus{border-color:var(--primary)}
+  .hist-head,.local-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;gap:12px;flex-wrap:wrap}
+  .hist-head input,.local-head input{padding:10px 14px;border:1.5px solid var(--border);border-radius:10px;font-size:13px;outline:none;width:280px;max-width:100%;background:#fff}
+  .hist-head input:focus,.local-head input:focus{border-color:var(--primary)}
   .hist-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px}
   @media(max-width:900px){.hist-stats{grid-template-columns:repeat(2,1fr)}}
   .stat-card{background:#fff;padding:16px;border-radius:12px;border:1px solid var(--border)}
@@ -235,6 +235,7 @@
     <nav class="nav">
       <button class="nav-item active" data-page="kasir"><span class="icon">💳</span>Kasir (POS)</button>
       <button class="nav-item" data-page="history"><span class="icon">📋</span>History Transaksi<span class="badge-count" id="histCount">0</span></button>
+      <button class="nav-item" data-page="localdata"><span class="icon">💾</span>Data Lokal<span class="badge-count" id="localCount">0</span></button>
       <button class="nav-item" data-page="pricelist"><span class="icon">🏷️</span>Pricelist</button>
       <button class="nav-item" data-page="settings"><span class="icon">⚙️</span>Pengaturan</button>
     </nav>
@@ -353,6 +354,28 @@
         </div>
       </div>
 
+      <div class="page" id="page-localdata">
+        <div class="card">
+          <div class="price-head">
+            <h2 style="font-size:18px;font-weight:800">💾 Data Lokal (Local Storage)</h2>
+            <button class="btn-tambah" style="background:linear-gradient(135deg,var(--danger),#dc2626)" onclick="clearAllLocalData()">🗑️ Hapus Semua</button>
+          </div>
+          <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;color:#92400e">
+            ⚠️ <strong>Perhatian:</strong> Data di bawah ini hanya tersimpan di browser ini. Gunakan fitur ini untuk menghapus data tes/ujicoba agar tidak menumpuk. 
+            Data yang sudah berhasil masuk ke Google Sheets <strong>TIDAK AKAN TERHAPUS</strong> dari sana.
+          </div>
+          <div class="local-head">
+            <input type="text" id="localSearch" placeholder="🔍 Cari di data lokal..." oninput="renderLocalData()" />
+          </div>
+          <div style="overflow-x:auto">
+            <table class="hist-table">
+              <thead><tr><th>Waktu</th><th>ID</th><th>Pelanggan</th><th>Total</th><th>Status</th><th>Aksi</th></tr></thead>
+              <tbody id="localBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
       <div class="page" id="page-pricelist">
         <div class="card">
           <div class="price-head">
@@ -410,6 +433,14 @@ Barang yang sudah dicuci tidak dapat ditukar kembali.</textarea></div>
             <div class="form-group">
               <label>Ketebalan: <span class="range-val" id="fontBoldVal">0</span></label>
               <div class="range-row"><span style="font-weight:400">Normal</span><input type="range" id="setBold" min="0" max="1" value="0" oninput="document.getElementById('fontBoldVal').textContent=this.value" /><span style="font-weight:700">Bold</span></div>
+            </div>
+            <div class="form-group">
+              <label>Ukuran Logo Struk: <span class="range-val" id="logoSizeVal">100</span>px</label>
+              <div class="range-row">
+                <span style="font-size:10px">Kecil</span>
+                <input type="range" id="setLogoSize" min="50" max="200" step="10" value="100" oninput="document.getElementById('logoSizeVal').textContent=this.value" />
+                <span style="font-size:14px">Besar</span>
+              </div>
             </div>
             <button class="btn-add" style="background:linear-gradient(135deg,var(--success),var(--success-dark));margin-top:10px" onclick="saveSettings()">💾 Simpan Pengaturan</button>
           </div>
@@ -505,7 +536,7 @@ let settings = JSON.parse(localStorage.getItem('yj_settings')||'null') || {
   url:'https://script.google.com/macros/s/AKfycbwl1JLQn9iGKWI7LdBD_dBFs7Kj5E39ywp7tuFkp85SfHulFzf7EXVqQDPWvCDRmx0t/exec', 
   name:'YENI JAYA LAUNDRY', alamat:'KP. CIDOKOM TAMBAK SEREAH, ALPAMART CIKOREK KEC. KIBIN, KAB. SERANG BANTEN - INDONESIA', hp:'087770434213',
   footer:'Terima kasih telah menggunakan\nYENI JAYA LAUNDRY',
-  size:'80', font:1, bold:0, fontFamily:"'Courier New',monospace", logo:''
+  size:'80', font:1, bold:0, fontFamily:"'Courier New',monospace", logo:'', logoSize: 100
 };
 let history = JSON.parse(localStorage.getItem('yj_history')||'[]');
 
@@ -527,10 +558,17 @@ document.querySelectorAll('.nav-item[data-page]').forEach(btn=>{
     btn.classList.add('active');
     document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
     document.getElementById('page-'+btn.dataset.page).classList.add('active');
-    const titles={kasir:['Kasir (POS)','Input transaksi baru'],history:['History Transaksi','Daftar semua transaksi'],pricelist:['Pricelist','Manajemen harga layanan'],settings:['Pengaturan','Konfigurasi toko & struk']};
+    const titles={
+      kasir:['Kasir (POS)','Input transaksi baru'],
+      history:['History Transaksi','Daftar semua transaksi'],
+      localdata:['Data Lokal','Kelola data transaksi di browser'],
+      pricelist:['Pricelist','Manajemen harga layanan'],
+      settings:['Pengaturan','Konfigurasi toko & struk']
+    };
     document.getElementById('pageTitle').textContent=titles[btn.dataset.page][0];
     document.getElementById('pageSub').textContent=titles[btn.dataset.page][1];
     if(btn.dataset.page==='history'){ renderHistory(); renderStats(); }
+    if(btn.dataset.page==='localdata') renderLocalData();
     if(btn.dataset.page==='pricelist') renderPricelist();
     if(window.innerWidth<=768) document.getElementById('sidebar').classList.remove('open');
   });
@@ -676,9 +714,6 @@ function onStatusChange(){
   sel.className = 'pay-select '+(sel.value==='Lunas'?'lunas':'hutang');
 }
 
-// ==========================================
-// 🚀 INSTANT SAVE & PRINT (OPTIMIZED)
-// ==========================================
 async function simpanTransaksi(){
   const nama = document.getElementById('cNama').value.trim();
   const hp = document.getElementById('cHp').value.trim();
@@ -704,21 +739,17 @@ async function simpanTransaksi(){
   btn.disabled = true; 
   btn.textContent = '⚡ Memproses...';
   
-  // 1. INSTANT LOCAL SAVE (Tidak menunggu network)
   history.unshift(data);
   localStorage.setItem('yj_history', JSON.stringify(history.slice(0,200)));
   updateHistCount();
   
-  // 2. INSTANT PRINT (Langsung trigger, delay hanya 50ms agar DOM ready)
   printStruk(data);
   
-  // 3. INSTANT UI RESET & FEEDBACK
   toast('✅ Transaksi tersimpan & dicetak!', 'success');
   resetForm();
   btn.disabled = false; 
   btn.textContent = '✅ Simpan & Cetak Draft';
 
-  // 4. BACKGROUND SYNC TO GOOGLE SHEETS (Fire & Forget, tidak memblokir UI)
   if(settings.url){
     fetch(settings.url, {
       method: 'POST',
@@ -738,12 +769,10 @@ function resetForm(){
   renderCart(); generateInvoice();
 }
 
-// ==========================================
-// 🖨️ INSTANT PRINT (IFRAME METHOD)
-// ==========================================
 function printStruk(data){
   const size = settings.size==='58'?'58mm':'80mm';
-  const logoHtml = settings.logo ? `<img src="${settings.logo}" style="max-width:90px;max-height:70px;display:block;margin:0 auto 8px">` : '';
+  const logoSize = settings.logoSize || 100; // UKURAN LOGO DINAMIS
+  const logoHtml = settings.logo ? `<img src="${settings.logo}" style="max-width:${logoSize}px;max-height:${logoSize}px;display:block;margin:0 auto 8px">` : '';
   const fs = settings.font===0?'10px':settings.font===1?'11px':'13px';
   const fw = settings.bold?'bold':'normal';
   const ff = settings.fontFamily||"'Courier New',monospace";
@@ -804,7 +833,6 @@ ${data.tambahan?`<div class="row"><span>Tambahan</span><span>+${rp(data.tambahan
 </body></html>`);
   doc.close();
   
-  // Trigger print instan (50ms cukup untuk render)
   setTimeout(()=>{
     try{
       iframe.contentWindow.focus();
@@ -819,14 +847,16 @@ function renderHistory(){
   const el = document.getElementById('histBody');
   if(!filtered.length){ el.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:40px;color:var(--muted)">Tidak ada transaksi</td></tr>'; return; }
   el.innerHTML = filtered.map(h=>{
-    const i = history.indexOf(h);
     return `<tr>
       <td>${h.waktu}</td><td><strong>${h.id}</strong></td>
       <td>${h.nama}<br><small style="color:var(--muted)">${h.hp}</small></td>
       <td>${h.items.map(it=>it.name).slice(0,2).join(', ')}${h.items.length>2?'...':''}</td>
       <td><strong>${rp(h.total)}</strong></td>
       <td><span class="badge ${h.status==='Lunas'?'lunas':'hutang'}">${h.status}</span></td>
-      <td><button class="act-btn" onclick="showDetail(${i})">👁️</button><button class="act-btn" onclick="reprint(${i})">🖨️</button></td>
+      <td>
+        <button class="act-btn" onclick="showDetail('${h.id}')">👁️</button>
+        <button class="act-btn" onclick="reprint('${h.id}')">🖨️</button>
+      </td>
     </tr>`;
   }).join('');
 }
@@ -842,8 +872,9 @@ function renderStats(){
   document.getElementById('statToday').textContent = todayTx.length;
 }
 
-function showDetail(i){
-  const h = history[i];
+function showDetail(id){
+  const h = history.find(x => x.id === id);
+  if(!h) return;
   document.getElementById('detailContent').innerHTML = `
     <div style="background:#f8fafc;padding:12px;border-radius:10px;margin-bottom:12px"><div style="font-size:12px;color:var(--muted)">ID Transaksi</div><div style="font-weight:800;font-size:16px">${h.id}</div></div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px;font-size:13px">
@@ -864,13 +895,64 @@ function showDetail(i){
       <div style="display:flex;justify-content:space-between;font-size:12px;margin-top:4px"><span>Bayar (${h.bayar})</span><span>${rp(h.terima)}</span></div>
       <div style="display:flex;justify-content:space-between;font-size:12px"><span>Kembalian</span><span>${rp(h.kembali)}</span></div>
     </div>`;
-  document.getElementById('btnReprint').onclick = ()=>{ reprint(i); closeModal('modalDetail'); };
+  document.getElementById('btnReprint').onclick = ()=>{ reprint(id); closeModal('modalDetail'); };
   document.getElementById('modalDetail').classList.add('show');
 }
 
-function reprint(i){ printStruk(history[i]); }
+function reprint(id){ 
+  const h = history.find(x => x.id === id);
+  if(h) printStruk(h); 
+}
 function closeModal(id){ document.getElementById(id).classList.remove('show'); }
-function updateHistCount(){ document.getElementById('histCount').textContent = history.length; }
+function updateHistCount(){ 
+  document.getElementById('histCount').textContent = history.length;
+  document.getElementById('localCount').textContent = history.length;
+}
+
+function renderLocalData(){
+  const q = (document.getElementById('localSearch')?.value||'').toLowerCase();
+  const filtered = history.filter(h=>!q || h.nama.toLowerCase().includes(q) || h.id.toLowerCase().includes(q));
+  const el = document.getElementById('localBody');
+  if(!filtered.length){ 
+    el.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:40px;color:var(--muted)">Tidak ada data lokal</td></tr>'; 
+    return; 
+  }
+  el.innerHTML = filtered.map(h=>`
+    <tr>
+      <td>${h.waktu}</td>
+      <td><strong>${h.id}</strong></td>
+      <td>${h.nama}<br><small style="color:var(--muted)">${h.hp}</small></td>
+      <td><strong>${rp(h.total)}</strong></td>
+      <td><span class="badge ${h.status==='Lunas'?'lunas':'hutang'}">${h.status}</span></td>
+      <td>
+        <button class="act-btn" style="color:var(--danger);border-color:var(--danger)" onclick="deleteLocalItem('${h.id}')">🗑️ Hapus</button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function deleteLocalItem(id){
+  if(!confirm('Yakin hapus data ini dari penyimpanan browser? Data di Google Sheets TETAP AMAN.')) return;
+  history = history.filter(h => h.id !== id);
+  localStorage.setItem('yj_history', JSON.stringify(history));
+  renderLocalData();
+  renderHistory();
+  renderStats();
+  updateHistCount();
+  toast('✓ Data lokal berhasil dihapus', 'success');
+}
+
+function clearAllLocalData(){
+  if(!confirm('Yakin hapus SEMUA data di Local Storage? Data di Google Sheets TETAP AMAN.')) return;
+  history = [];
+  localStorage.setItem('yj_history', JSON.stringify(history));
+  renderLocalData();
+  renderHistory();
+  renderStats();
+  updateHistCount();
+  generateInvoice();
+  toast('✓ Semua data lokal berhasil dihapus', 'success');
+}
 
 function renderPricelist(){
   const q = (document.getElementById('priceSearch')?.value||'').toLowerCase();
@@ -956,6 +1038,8 @@ function loadSettings(){
   document.getElementById('setBold').value = settings.bold||0;
   document.getElementById('fontSizeVal').textContent = settings.font||1;
   document.getElementById('fontBoldVal').textContent = settings.bold||0;
+  document.getElementById('setLogoSize').value = settings.logoSize || 100;
+  document.getElementById('logoSizeVal').textContent = settings.logoSize || 100;
   if(settings.logo){
     document.getElementById('logoPreview').src = settings.logo;
     document.getElementById('logoPreview').style.display = 'block';
@@ -975,6 +1059,7 @@ function saveSettings(){
     fontFamily: document.getElementById('setFontFamily').value,
     font: +document.getElementById('setFont').value,
     bold: +document.getElementById('setBold').value,
+    logoSize: +document.getElementById('setLogoSize').value || 100,
     logo: settings.logo||''
   };
   localStorage.setItem('yj_settings', JSON.stringify(settings));
@@ -1052,7 +1137,7 @@ function loadTheme(){
 function downloadPDF(){
   if(!history.length){ toast('Tidak ada data','error'); return; }
   const w = window.open('','_blank','width=1000,height=800');
-  const logoHtml = settings.logo ? `<img src="${settings.logo}" style="max-height:60px;margin-right:16px">` : '';
+  const logoHtml = settings.logo ? `<img src="${settings.logo}" style="max-height:80px;margin-right:16px">` : '';
   const today = new Date().toLocaleDateString('id-ID',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   const income = history.filter(h=>h.status==='Lunas').reduce((s,h)=>s+h.total,0);
   const hutang = history.filter(h=>h.status==='Belum Lunas').reduce((s,h)=>s+h.total,0);
